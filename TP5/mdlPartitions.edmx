@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mdlPartitions.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="auteur">
+          <Key>
+            <PropertyRef Name="NUMAUT" />
+          </Key>
+          <Property Name="NUMAUT" Type="int" Nullable="false" />
+          <Property Name="NOMAUT" Type="varchar" MaxLength="128" />
+          <Property Name="PRENOMAUT" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="NUMCLI" />
+          </Key>
+          <Property Name="NUMCLI" Type="int" Nullable="false" />
+          <Property Name="NOMCLI" Type="varchar" MaxLength="128" />
+          <Property Name="PRENOMCLI" Type="varchar" MaxLength="128" />
+          <Property Name="EMAILCLI" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ADRCLI" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="NUMCDE" />
+          </Key>
+          <Property Name="NUMCLI" Type="int" Nullable="false" />
+          <Property Name="NUMCDE" Type="int" Nullable="false" />
+          <Property Name="DATECDE" Type="date" />
+          <Property Name="MONTANTCDE" Type="int" />
+        </EntityType>
+        <EntityType Name="contenir">
+          <Key>
+            <PropertyRef Name="NUMCDE" />
+            <PropertyRef Name="NUMPART" />
+          </Key>
+          <Property Name="NUMCDE" Type="int" Nullable="false" />
+          <Property Name="NUMPART" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ecrire">
+          <Key>
+            <PropertyRef Name="NUMPART" />
+            <PropertyRef Name="NUMAUT" />
+          </Key>
+          <Property Name="NUMPART" Type="int" Nullable="false" />
+          <Property Name="NUMAUT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="partitions">
+          <Key>
+            <PropertyRef Name="NUMPART" />
+          </Key>
+          <Property Name="NUMPART" Type="int" Nullable="false" />
+          <Property Name="LIBPART" Type="varchar" MaxLength="128" />
+          <Property Name="PRIXPART" Type="int" />
+        </EntityType>
+        <Association Name="contenir_ibfk_1">
+          <End Role="commande" Type="Self.commande" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="contenir" Type="Self.contenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="NUMCDE" />
+            </Principal>
+            <Dependent Role="contenir">
+              <PropertyRef Name="NUMCDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contenir_ibfk_2">
+          <End Role="partitions" Type="Self.partitions" Multiplicity="1" />
+          <End Role="contenir" Type="Self.contenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partitions">
+              <PropertyRef Name="NUMPART" />
+            </Principal>
+            <Dependent Role="contenir">
+              <PropertyRef Name="NUMPART" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ecrire_ibfk_1">
+          <End Role="partitions" Type="Self.partitions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ecrire" Type="Self.ecrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partitions">
+              <PropertyRef Name="NUMPART" />
+            </Principal>
+            <Dependent Role="ecrire">
+              <PropertyRef Name="NUMPART" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ecrire_ibfk_2">
+          <End Role="auteur" Type="Self.auteur" Multiplicity="1" />
+          <End Role="ecrire" Type="Self.ecrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="auteur">
+              <PropertyRef Name="NUMAUT" />
+            </Principal>
+            <Dependent Role="ecrire">
+              <PropertyRef Name="NUMAUT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE_ADHERENT">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="NUMCLI" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="NUMCLI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mdlPartitionsStoreContainer">
+          <EntitySet Name="auteur" EntityType="Self.auteur" Schema="bd_partition" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="bd_partition" store:Type="Tables" />
+          <EntitySet Name="commande" EntityType="Self.commande" Schema="bd_partition" store:Type="Tables" />
+          <EntitySet Name="contenir" EntityType="Self.contenir" Schema="bd_partition" store:Type="Tables" />
+          <EntitySet Name="ecrire" EntityType="Self.ecrire" Schema="bd_partition" store:Type="Tables" />
+          <EntitySet Name="partitions" EntityType="Self.partitions" Schema="bd_partition" store:Type="Tables" />
+          <AssociationSet Name="contenir_ibfk_1" Association="Self.contenir_ibfk_1">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="contenir" EntitySet="contenir" />
+          </AssociationSet>
+          <AssociationSet Name="contenir_ibfk_2" Association="Self.contenir_ibfk_2">
+            <End Role="partitions" EntitySet="partitions" />
+            <End Role="contenir" EntitySet="contenir" />
+          </AssociationSet>
+          <AssociationSet Name="ecrire_ibfk_1" Association="Self.ecrire_ibfk_1">
+            <End Role="partitions" EntitySet="partitions" />
+            <End Role="ecrire" EntitySet="ecrire" />
+          </AssociationSet>
+          <AssociationSet Name="ecrire_ibfk_2" Association="Self.ecrire_ibfk_2">
+            <End Role="auteur" EntitySet="auteur" />
+            <End Role="ecrire" EntitySet="ecrire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE_ADHERENT" Association="Self.FK_COMMANDE_ADHERENT">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mdlPartitions" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="auteur">
+          <Key>
+            <PropertyRef Name="NUMAUT" />
+          </Key>
+          <Property Name="NUMAUT" Type="Int32" Nullable="false" />
+          <Property Name="NOMAUT" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="partitions" Relationship="Self.ecrire" FromRole="auteur" ToRole="partitions" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="NUMCLI" />
+          </Key>
+          <Property Name="NUMCLI" Type="Int32" Nullable="false" />
+          <Property Name="NOMCLI" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PRENOMCLI" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ADRCLI" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="commande" Relationship="Self.FK_COMMANDE_ADHERENT" FromRole="client" ToRole="commande" />
+          <Property Name="EMAILCLI" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="NUMCDE" />
+          </Key>
+          <Property Name="NUMCLI" Type="Int32" Nullable="false" />
+          <Property Name="NUMCDE" Type="Int32" Nullable="false" />
+          <Property Name="DATECDE" Type="DateTime" />
+          <Property Name="MONTANTCDE" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.FK_COMMANDE_ADHERENT" FromRole="commande" ToRole="client" />
+          <NavigationProperty Name="partitions" Relationship="Self.contenir" FromRole="commande" ToRole="partitions" />
+        </EntityType>
+        <EntityType Name="partitions">
+          <Key>
+            <PropertyRef Name="NUMPART" />
+          </Key>
+          <Property Name="NUMPART" Type="Int32" Nullable="false" />
+          <Property Name="LIBPART" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PRIXPART" Type="Int32" />
+          <NavigationProperty Name="commande" Relationship="Self.contenir" FromRole="partitions" ToRole="commande" />
+          <NavigationProperty Name="auteur" Relationship="Self.ecrire" FromRole="partitions" ToRole="auteur" />
+        </EntityType>
+        <Association Name="FK_COMMANDE_ADHERENT">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="NUMCLI" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="NUMCLI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contenir">
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <End Role="partitions" Type="Self.partitions" Multiplicity="*" />
+        </Association>
+        <Association Name="ecrire">
+          <End Role="partitions" Type="Self.partitions" Multiplicity="*" />
+          <End Role="auteur" Type="Self.auteur" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bd_partitionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auteur" EntityType="Self.auteur" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="commande" EntityType="Self.commande" />
+          <EntitySet Name="partitions" EntityType="Self.partitions" />
+          <AssociationSet Name="FK_COMMANDE_ADHERENT" Association="Self.FK_COMMANDE_ADHERENT">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="contenir" Association="Self.contenir">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="partitions" EntitySet="partitions" />
+          </AssociationSet>
+          <AssociationSet Name="ecrire" Association="Self.ecrire">
+            <End Role="partitions" EntitySet="partitions" />
+            <End Role="auteur" EntitySet="auteur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mdlPartitionsStoreContainer" CdmEntityContainer="bd_partitionEntities">
+          <EntitySetMapping Name="auteur">
+            <EntityTypeMapping TypeName="mdlPartitions.auteur">
+              <MappingFragment StoreEntitySet="auteur">
+                <ScalarProperty Name="NUMAUT" ColumnName="NUMAUT" />
+                <ScalarProperty Name="NOMAUT" ColumnName="NOMAUT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="mdlPartitions.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="EMAILCLI" ColumnName="EMAILCLI" />
+                <ScalarProperty Name="NUMCLI" ColumnName="NUMCLI" />
+                <ScalarProperty Name="NOMCLI" ColumnName="NOMCLI" />
+                <ScalarProperty Name="PRENOMCLI" ColumnName="PRENOMCLI" />
+                <ScalarProperty Name="ADRCLI" ColumnName="ADRCLI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commande">
+            <EntityTypeMapping TypeName="mdlPartitions.commande">
+              <MappingFragment StoreEntitySet="commande">
+                <ScalarProperty Name="NUMCLI" ColumnName="NUMCLI" />
+                <ScalarProperty Name="NUMCDE" ColumnName="NUMCDE" />
+                <ScalarProperty Name="DATECDE" ColumnName="DATECDE" />
+                <ScalarProperty Name="MONTANTCDE" ColumnName="MONTANTCDE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partitions">
+            <EntityTypeMapping TypeName="mdlPartitions.partitions">
+              <MappingFragment StoreEntitySet="partitions">
+                <ScalarProperty Name="NUMPART" ColumnName="NUMPART" />
+                <ScalarProperty Name="LIBPART" ColumnName="LIBPART" />
+                <ScalarProperty Name="PRIXPART" ColumnName="PRIXPART" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="contenir" TypeName="mdlPartitions.contenir" StoreEntitySet="contenir">
+            <EndProperty Name="commande">
+              <ScalarProperty Name="NUMCDE" ColumnName="NUMCDE" />
+            </EndProperty>
+            <EndProperty Name="partitions">
+              <ScalarProperty Name="NUMPART" ColumnName="NUMPART" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ecrire" TypeName="mdlPartitions.ecrire" StoreEntitySet="ecrire">
+            <EndProperty Name="partitions">
+              <ScalarProperty Name="NUMPART" ColumnName="NUMPART" />
+            </EndProperty>
+            <EndProperty Name="auteur">
+              <ScalarProperty Name="NUMAUT" ColumnName="NUMAUT" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
