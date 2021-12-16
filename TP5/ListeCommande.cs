@@ -69,5 +69,19 @@ namespace TP5
             this.Hide();
             FGC.Show();
         }
+
+        private void BtnSupp_Click(object sender, EventArgs e)
+        {
+            System.Type type = bsCommande.Current.GetType();
+            int idCommande = (int)type.GetProperty("NUMCDE").GetValue(bsCommande.Current, null);
+            if (Modele.SuppCommande(idCommande))
+            {
+                MessageBox.Show("La commande a été supprimée");
+            }
+            else
+            {
+                MessageBox.Show("La commande n'a pas été supprimé");
+            }
+        }
     }
 }

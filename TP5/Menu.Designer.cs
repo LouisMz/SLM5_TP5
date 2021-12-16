@@ -32,6 +32,7 @@
             this.listeClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listeCommandeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajouterCommandeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listePartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +41,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listeClientToolStripMenuItem,
             this.listeCommandeToolStripMenuItem,
-            this.ajouterCommandeToolStripMenuItem});
+            this.ajouterCommandeToolStripMenuItem,
+            this.listePartitionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -68,6 +70,13 @@
             this.ajouterCommandeToolStripMenuItem.Text = "Ajouter Commande";
             this.ajouterCommandeToolStripMenuItem.Click += new System.EventHandler(this.AjouterCommandeToolStripMenuItem_Click);
             // 
+            // listePartitionToolStripMenuItem
+            // 
+            this.listePartitionToolStripMenuItem.Name = "listePartitionToolStripMenuItem";
+            this.listePartitionToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.listePartitionToolStripMenuItem.Text = "Liste Partition";
+            this.listePartitionToolStripMenuItem.Click += new System.EventHandler(this.ListePartitionToolStripMenuItem_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -90,5 +99,6 @@
         private System.Windows.Forms.ToolStripMenuItem listeClientToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listeCommandeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajouterCommandeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listePartitionToolStripMenuItem;
     }
 }

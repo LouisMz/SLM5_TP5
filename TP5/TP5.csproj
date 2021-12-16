@@ -89,6 +89,12 @@
     <Compile Include="ListeCommande.Designer.cs">
       <DependentUpon>ListeCommande.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListePartitions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListePartitions.Designer.cs">
+      <DependentUpon>ListePartitions.cs</DependentUpon>
+    </Compile>
     <Compile Include="mdlPartitions.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListeCommande.resx">
       <DependentUpon>ListeCommande.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListePartitions.resx">
+      <DependentUpon>ListePartitions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

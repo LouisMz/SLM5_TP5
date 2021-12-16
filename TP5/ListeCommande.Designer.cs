@@ -32,9 +32,11 @@
             this.dgvCommande = new System.Windows.Forms.DataGridView();
             this.cbClient = new System.Windows.Forms.ComboBox();
             this.btnAjouter = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
+            this.btnSupp = new System.Windows.Forms.Button();
             this.bsCommande = new System.Windows.Forms.BindingSource(this.components);
             this.bsClient = new System.Windows.Forms.BindingSource(this.components);
-            this.btnModifier = new System.Windows.Forms.Button();
+            this.btnPartition = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCommande)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCommande)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsClient)).BeginInit();
@@ -69,10 +71,6 @@
             this.btnAjouter.UseVisualStyleBackColor = true;
             this.btnAjouter.Click += new System.EventHandler(this.BtnAjouter_Click);
             // 
-            // bsClient
-            // 
-            this.bsClient.CurrentChanged += new System.EventHandler(this.BsClient_CurrentChanged);
-            // 
             // btnModifier
             // 
             this.btnModifier.Location = new System.Drawing.Point(602, 464);
@@ -83,11 +81,36 @@
             this.btnModifier.UseVisualStyleBackColor = true;
             this.btnModifier.Click += new System.EventHandler(this.BtnModifier_Click);
             // 
+            // btnSupp
+            // 
+            this.btnSupp.Location = new System.Drawing.Point(493, 464);
+            this.btnSupp.Name = "btnSupp";
+            this.btnSupp.Size = new System.Drawing.Size(75, 23);
+            this.btnSupp.TabIndex = 4;
+            this.btnSupp.Text = "Supprimer";
+            this.btnSupp.UseVisualStyleBackColor = true;
+            this.btnSupp.Click += new System.EventHandler(this.BtnSupp_Click);
+            // 
+            // bsClient
+            // 
+            this.bsClient.CurrentChanged += new System.EventHandler(this.BsClient_CurrentChanged);
+            // 
+            // btnPartition
+            // 
+            this.btnPartition.Location = new System.Drawing.Point(399, 464);
+            this.btnPartition.Name = "btnPartition";
+            this.btnPartition.Size = new System.Drawing.Size(75, 23);
+            this.btnPartition.TabIndex = 5;
+            this.btnPartition.Text = "Paritions";
+            this.btnPartition.UseVisualStyleBackColor = true;
+            // 
             // ListeCommande
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 499);
+            this.Controls.Add(this.btnPartition);
+            this.Controls.Add(this.btnSupp);
             this.Controls.Add(this.btnModifier);
             this.Controls.Add(this.btnAjouter);
             this.Controls.Add(this.cbClient);
@@ -111,5 +134,7 @@
         private System.Windows.Forms.BindingSource bsClient;
         private System.Windows.Forms.Button btnAjouter;
         private System.Windows.Forms.Button btnModifier;
+        private System.Windows.Forms.Button btnSupp;
+        private System.Windows.Forms.Button btnPartition;
     }
 }

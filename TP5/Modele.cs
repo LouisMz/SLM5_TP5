@@ -23,6 +23,10 @@ namespace TP5
         {
             return maConnexion.commande.ToList();
         }
+        public static List<partitions> listPartitions()
+        {
+            return maConnexion.partitions.ToList();
+        }
 
         public static bool AjoutCommande(int montant, DateTime dateC, int idClient)
         {
@@ -73,6 +77,29 @@ namespace TP5
                 vretour = false;
             }
             return vretour;
-        }
+        }
+
+        public static bool SuppCommande(int idCommande)
+        {
+            bool vretour = true;
+            try
+            {
+                maCommande = RecupererCommande(idCommande);
+                maConnexion.commande.Remove(maCommande);
+                maConnexion.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message + " " +
+               ex.InnerException.InnerException.Message);
+                vretour = false;
+            }
+            return vretour;
+        }
+        public static List<partitions> listePartitionsParCommande(int idC)
+        {
+            commande c = maConnexion.commande.Find(idC);
+            return (c.partitions.ToList());
+        }
     }
 }

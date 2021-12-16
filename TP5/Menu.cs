@@ -37,5 +37,12 @@ namespace TP5
             this.Hide();
             FGC.Show();
         }
+
+        private void ListePartitionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListePartitions LP = new ListePartitions();
+            this.Hide();
+            LP.Show();
+        }
     }
 }
